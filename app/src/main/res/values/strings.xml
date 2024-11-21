@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lab5_MSec</string>
+    <string name="get_img">Get Image</string>
+    <string name="back_button">Back</string>
+    <string name="image_info">Image Info</string>
+
+    <string name="to_main">To Main</string>
+    <string name="edit_data">Edit Data</string>
+
+    <string name="date">Дата создания</string>
+    <string name="latitude">Широта</string>
+    <string name="longitude">Долгота</string>
+    <string name="device">Устройство</string>
+    <string name="model">Модель устройства</string>
+</resources>
