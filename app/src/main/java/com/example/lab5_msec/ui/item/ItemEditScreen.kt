@@ -18,6 +18,8 @@ package com.example.lab5_msec.ui.item
 
 import android.app.Activity
 import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,6 +41,8 @@ import com.example.lab5_msec.R
 import com.example.lab5_msec.ui.navigation.NavigationDestination
 import com.example.lab5_msec.ui.theme.InventoryTheme
 import com.example.lab5_msec.ui.home.VM
+import java.sql.Date
+import java.time.LocalDate
 
 object ItemEditDestination : NavigationDestination {
     override val route = "item_edit"
@@ -50,6 +54,7 @@ object ItemEditDestination : NavigationDestination {
 fun ItemEditScreen(
     navigateBack: () -> Unit,
     navigateToHome: () -> Unit,
+    navigateToItemDetails: (Uri) -> Unit,
     uri: Uri
 ) {
     val uiState by VM.uiState
@@ -140,8 +145,20 @@ fun ItemEditScreen(
             Text(stringResource(R.string.to_main))
         }
 
+        val saveFileLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("image/*"))
+        { newuri: Uri? ->
+            if (newuri != null)
+            {
+                VM.exRep.saveFileWithNewTags(
+                    newuri, uiState.date,
+                    uiState.latitude, uiState.longitude,
+                    uiState.device, uiState.model, navigateToItemDetails
+                )
+            }
+        }
+
         Button(
-            onClick = { navigateBack() }, //ToDo кнопка сохранения файла
+            onClick = { saveFileLauncher.launch("newtag${LocalDate.now()}.jpg") }, //ToDo кнопка сохранения файла
             modifier = Modifier.fillMaxWidth(),
             shape = MaterialTheme.shapes.small
         ) {

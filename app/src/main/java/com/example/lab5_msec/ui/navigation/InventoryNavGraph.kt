@@ -71,6 +71,8 @@ fun InventoryNavHost(
             ItemEditScreen(
                 navigateBack = { navController.popBackStack() },
                 navigateToHome = {navController.navigate(HomeDestination.route)},
+                navigateToItemDetails = {imageUri = it
+                    navController.navigate(ItemDetailsDestination.route) },
                 uri = imageUri!!
             )
         }
