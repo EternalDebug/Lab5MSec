@@ -32,6 +32,8 @@ import com.example.lab5_msec.ui.item.ItemDetailsScreen
 //import com.example.lab5_msec.ui.item.ItemEditScreen
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.example.lab5_msec.ui.item.ItemEditDestination
+import com.example.lab5_msec.ui.item.ItemEditScreen
 
 /**
  * Provides Navigation graph for the application.
@@ -58,19 +60,20 @@ fun InventoryNavHost(
         composable(route = ItemDetailsDestination.route)
         {
             ItemDetailsScreen(
-                navigateToEditItem = { },//navController.navigate(ItemEditDestination.route) },
+                navigateToEditItem = {navController.navigate(ItemEditDestination.route) },
                 navigateBack = { navController.popBackStack() },
                 navigateToHome = { navController.navigate(HomeDestination.route) },
                 uri = imageUri!!
             )
         }
 
-        //composable(route = ItemEditDestination.route) {
-        //    ItemEditScreen(
-        //        navigateBack = { navController.popBackStack() },
-        //        navigateToHome = {navController.navigate(HomeDestination.route)}
-        //    )
-        //}
+        composable(route = ItemEditDestination.route) {
+            ItemEditScreen(
+                navigateBack = { navController.popBackStack() },
+                navigateToHome = {navController.navigate(HomeDestination.route)},
+                uri = imageUri!!
+            )
+        }
 
     }
 }

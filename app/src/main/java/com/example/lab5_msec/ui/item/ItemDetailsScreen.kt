@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -38,6 +39,8 @@ object ItemDetailsDestination : NavigationDestination {
     override val titleRes = R.string.image_info
 }
 
+var VM = ItemEditViewModel()
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ItemDetailsScreen(
@@ -48,7 +51,6 @@ fun ItemDetailsScreen(
     uri: Uri
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-
     Column (
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -90,6 +92,7 @@ fun ItemDetailsScreen(
 fun ItemDetails(
     modifier: Modifier = Modifier,
 ) {
+    val uiState by VM.uiState
     Card(
         modifier = modifier, colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -104,7 +107,7 @@ fun ItemDetails(
         ) {
             ItemDetailsRow(
                 labelResID = R.string.date,
-                itemDetail = "date",
+                itemDetail = uiState.date, //VM.uiState.value.date
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -114,7 +117,7 @@ fun ItemDetails(
             )
             ItemDetailsRow(
                 labelResID = R.string.latitude,
-                itemDetail = "latitude",
+                itemDetail = uiState.latitude,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -124,7 +127,7 @@ fun ItemDetails(
             )
             ItemDetailsRow(
                 labelResID = R.string.longitude,
-                itemDetail = "longitude",
+                itemDetail = uiState.longitude,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -134,7 +137,7 @@ fun ItemDetails(
             )
             ItemDetailsRow(
                 labelResID = R.string.device,
-                itemDetail = "device",
+                itemDetail = uiState.device,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen
@@ -144,7 +147,7 @@ fun ItemDetails(
             )
             ItemDetailsRow(
                 labelResID = R.string.model,
-                itemDetail = "model",
+                itemDetail = uiState.model,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(
                         id = R.dimen

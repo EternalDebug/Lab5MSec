@@ -23,6 +23,7 @@ import com.example.lab5_msec.R
 import com.example.lab5_msec.ui.navigation.NavigationDestination
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.example.lab5_msec.ui.item.VM
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -41,6 +42,7 @@ fun HomeScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     var imageUri: Uri? by rememberSaveable { mutableStateOf(null) }
     if (imageUri != null){
+        VM.UpdateUIForNewPicture(imageUri!!)
         navigateToItemDetails(imageUri!!)
         imageUri = null
     }
