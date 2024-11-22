@@ -1,5 +1,6 @@
 package com.example.lab5_msec.ui.home
 
+import android.app.Activity
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -23,12 +24,15 @@ import com.example.lab5_msec.R
 import com.example.lab5_msec.ui.navigation.NavigationDestination
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.example.lab5_msec.ui.item.VM
+import androidx.compose.ui.platform.LocalContext
+import com.example.lab5_msec.ui.item.ItemEditViewModel
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
     override val titleRes = R.string.app_name
 }
+
+lateinit var VM:ItemEditViewModel
 
 /**
  * Entry route for Home screen
@@ -39,10 +43,12 @@ fun HomeScreen(
     navigateToItemDetails: (Uri) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current as Activity
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     var imageUri: Uri? by rememberSaveable { mutableStateOf(null) }
     if (imageUri != null){
-        VM.UpdateUIForNewPicture(imageUri!!)
+        VM = ItemEditViewModel(imageUri!!, context)
+        VM.UpdateUIForNewPicture()
         navigateToItemDetails(imageUri!!)
         imageUri = null
     }

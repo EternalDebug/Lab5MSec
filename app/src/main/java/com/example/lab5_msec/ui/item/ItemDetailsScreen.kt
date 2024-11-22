@@ -1,5 +1,6 @@
 package com.example.lab5_msec.ui.item
 
+import android.app.Activity
 import android.net.Uri
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,13 +35,12 @@ import com.example.lab5_msec.InventoryTopAppBar
 import com.example.lab5_msec.R
 import com.example.lab5_msec.ui.navigation.NavigationDestination
 import com.example.lab5_msec.ui.theme.InventoryTheme
+import com.example.lab5_msec.ui.home.VM
 
 object ItemDetailsDestination : NavigationDestination {
     override val route = "item_details"
     override val titleRes = R.string.image_info
 }
-
-var VM = ItemEditViewModel()
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,6 +51,7 @@ fun ItemDetailsScreen(
     //modifier: Modifier = Modifier,
     uri: Uri
 ) {
+    val context = LocalContext.current as Activity
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Column (
         modifier = Modifier
